@@ -39,11 +39,12 @@ void setup()
 
 void loop() 
 {
-  //delay(mainTimeDelay);
+//  delay(mainTimeDelay);
   dhtTemp1();
   dhtTemp2();
-//  lightSaber();
-//  moisture();
+  moisture();
+  lightSaber();
+
 }
 
 void dhtTemp1()
@@ -76,7 +77,8 @@ void dhtTemp2()
   float hic = dht2.computeHeatIndex(t, h, false);
   Serial.print(t);
   Serial.print(",");
-  Serial.println(h);
+  Serial.print(h);
+  Serial.print(",");
 //  Serial.println();
 }
 
@@ -86,6 +88,7 @@ void moisture()
   humidade = analogRead(A0); //pino analógico A0
   int Porcento = map(humidade, 1023, 0, 0, 100);
   Serial.print(Porcento);
+  Serial.print(",");
   //Serial.println("% humidade do solo");
   if (Porcento <= 10)
   {
@@ -113,7 +116,7 @@ void lightSaber()
     boolean good;  
     //calculo de Lux
     good = light.getLux(gain,ms,data0,data1,lux);
-    Serial.print(lux);
-    Serial.println();
+    Serial.println(lux);
+//    Serial.println();
   }
 }
