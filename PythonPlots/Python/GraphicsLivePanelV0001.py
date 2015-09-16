@@ -121,7 +121,7 @@ while True: # While loop that loops forever
     lum.append(lumen)                       #dont play dumb again! And if you do increment the following counter in 1 ApplePhoneCounter = 0
     drawnow(makeFig)                        #Call drawnow to update our live graph
     plt.pause(.000001)                      #Pause Briefly. Important to keep drawnow from crashing
-    cnt=cnt+1                                #increments counter
+    cnt=cnt+1                               #increments counter
     if(cnt>50):                             #If you have 50 or more points, delete the first one from the array
         tempF.pop(0)                        #This allows us to just see the last 50 data points and of clears the *f mess that is done before
         tempF2.pop(0)                       #...
