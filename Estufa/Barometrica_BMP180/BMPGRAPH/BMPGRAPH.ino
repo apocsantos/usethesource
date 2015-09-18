@@ -45,16 +45,10 @@ SFE_BMP180 pressure;
 void setup()
 {
   Serial.begin(115200);
-  //Serial.println("Re-inicia");
-
-  // Initialize the sensor (it is important to get calibration values stored on the device).
-
   if (pressure.begin())
-    //Serial.println("Inicializar sensor BMP180");
     delay(100);
   else
   {
-    //Serial.println("Falha a iniciar o sensor BMP180 \n\n");
     while(1); // Pausa.
   }
 }
@@ -64,84 +58,34 @@ void loop()
   char status;
   double T,P,p0,a;
 
-  // Lê a pressão a cada 10 segundos.
-  //Serial.println();
-  //Serial.print("Altitude (Inserida manualmente): ");
-  //Serial.print(ALTITUDE,0);
-  //Serial.print(" metros, ");
-  //não sou aviador, mas fica o calculo para altitude em pés: (Serial.print(ALTITUDE*3.28084,0); Serial.println("pés");)
-  
-  // Faz a medição da temperatura (valor necessário para o calculo da pressão baromtétrica)
-  // Se a leitura foi efectuada com sucesso, um valor é retornado
-  // If request is successful, the number of ms to wait is returned.
-  // caso contrario é retornado zero
   status = pressure.startTemperature();
   if (status != 0)
   {
     // Aguarda o resultado da leitura
     delay(status);
-    //Devolve uma leitura de tempratura, que é armazenada na variavel T.
-    //Retorna 1 se a funcao foi executada correctamente e zero se falhou
     //Note to Self: Implementar try catch era interessante
-
     status = pressure.getTemperature(T);
     if (status != 0)
     {
       // Imprime na porta série o valor de temperatura:
       //Serial.print("temperatura: ");
-      //Serial.print(T,2);
-      //Serial.print(" deg C, ");
-      //Em Farenhieght se formos usar terminologia americana
-      /*
-      Serial.print((9.0/5.0)*T+32.0,2);
-      Serial.println(" deg F");
-      */
-
-      //Inicia a medicao da pressao atmosférica
-      //É enviado um parametro de oversampling entre zero e tres, conforme a resolucao pertendida (maior ou menor)
-      //Se a funcao for executada com sucesso, retorna um valor em ms
-      //caso contrario, retorna zero
+      Serial.print(T,2);
+      Serial.print(",");
       status = pressure.startPressure(3);
       if (status != 0)
       {
-        // Aguarda o fim da medicao
         delay(status);
-        //Devolve a medicao de pressao cmpleta.
-        //O Valor da pressão é armazenado na variavel P. O valor da temperatura medida anteriormente, na variável T (valor necessário para o calculo).
-        //Em ambientes de temperatura fixa, é desnecessário efectuar a medição de temperatura constantemente. Pode-se usar uma constante, ou utilizar uma temperatura vinda de outro sensor, tipo um DHT11.
-        //Como em todas as funcoes anteriores, retorna 1 se a funcao executou com sucsso, e zero se falhou.
-        //Note to Self: Mais um bom local para se usar um try catch e dar alguma informacao sobre o erro em caso de erro.
         status = pressure.getPressure(P,T);
         if (status != 0)
         {
-          Serial.print(T);
-          Serial.print(" , ");
-          Serial.println(P*0.0295333727,2);
+         // Serial.println(P*0.0295333727,2);
           delay(250);
           // Print out the measurement:
-          /*Serial.print("Pressao Absoluta em mb: ");
-          Serial.print(P,2);
-          Serial.print(" mb, ");
-          Serial.print(P*0.0295333727,2);
-          Serial.println(" inHg");
-          // Usa-se a constante ALTITUDE anteriormetne declarada, para remover a variaçao da pressão derivada da altitude
-          // Parameteros: P = pressao absoluta em mb, ALTITUDE = altitude actual em metros.
-          // Result: p0 = pressao compensada ao NMAM em mb
           p0 = pressure.sealevel(P,ALTITUDE); // Estou a 92metros, e altura e a vários cafés de pressao!
-          Serial.print("Pressao relativa ao NMAM: ");
-          Serial.print(p0,2);
-          Serial.print(" mb, ");
-          Serial.print(p0*0.0295333727,2);
-          Serial.println(" inHg");
-          */
+          Serial.println(p0,2);
         }
-        else Serial.println("Ocorreu um erro na medicao Cod-1\n");
-      }
-      else Serial.println("Ocorreu um erro na medicao Cod-2\n");
+       }
     }
-    else Serial.println("Ocorreu um erro na medicao Cod-3\n");
   }
-  else Serial.println("Ocorreu um erro na medicao Cod-4\n");
-
   delay(5000);  // Pause for 5 seconds.
 }
