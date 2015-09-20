@@ -1,4 +1,4 @@
-#16-09-2015
+#20-09-2015
 #graphics with arduino an python for:
 #Carapaus of racing! or in other words, "F1 carapaus".
 #Optimized version 1, for low resources.
@@ -14,13 +14,13 @@ from array import array
 #global variables and objects
 #all data grafics arrays declared explicit as arrays of floats
 tempF = array('f')
-tempF2= array('f')
-humF1= array('f')
-humF2= array('f')
+tempF2 = array('f')
+humF1 = array('f')
+humF2 = array('f')
 lum = array('f')
 moist = array('f')
 #line data array
-arduinoData = serial.Serial('com5', 115200) #Creates a serial object named arduinoData
+arduinoData = serial.Serial('com3', 115200) #Creates a serial object named arduinoData
 plt.ion() #Tell matplotlib that we want interactive mode to plot live data
 cnt=0
 
@@ -28,7 +28,6 @@ cnt=0
 #use twinx() to make as many graph's as we want, but be sure to
 #use the same mesuring units
 #
-
 #function makeFig()
 def makeFig(): #Create a function that makes the desired plot
     gs = gridspec.GridSpec(3, 3) #gridspec is created 3x3
@@ -90,12 +89,12 @@ while True: # While loop that loops forever
     #the fricking indian magic happens here
     splitedArray = [float(s) for s in arduinoString.split(',')] #splits the string into an array of floats
     #assign each array value to the correspondent variable, I dont *f like in-line opreations cause they tend to make messy code
-    temp = splitedArray[0]  #assign each array value to the correspondent variable
-    hum1 = splitedArray[1] #I dont *f like in-line opreations cause they tend to make messy code
-    temp2 = splitedArray[2]  #if you do, cool for you!
-    hum2 = splitedArray[3] #if you dont, that makes us 2
+    temp = splitedArray[0]     #assign each array value to the correspondent variable
+    hum1 = splitedArray[1]     #I dont *f like in-line opreations cause they tend to make messy code
+    temp2 = splitedArray[2]    #if you do, cool for you!
+    hum2 = splitedArray[3]     #if you dont, that makes us 2
     moisture = splitedArray[4] #if you just think this could be more optimized...
-    lumen = splitedArray[5]  #you are right, but I'm not in the *f mood to do it! So shut the *f up
+    lumen = splitedArray[5]    #you are right, but I'm not in the *f mood to do it! So shut the *f up
     #appends a value to the float array (here the data is stored to each array! Sure I could have used arrays of objects! But I'm not in the mood!
     #if you do, cool for you! if you dont, that makes us 2! if you just think this could be more optimized... you are right!
     #but I'm not in the *f mood to do it! So shut the *f up and screw you
