@@ -88,7 +88,7 @@ while True: # While loop that loops forever
         #case you found the variable name strange, read my favore pice of C code at: https://dl.dropboxusercontent.com/u/21721067/forkabout.c
         #the fricking indian magic happens here
         splitedArray = [float(s) for s in arduinoString.split(',')] #splits the string into an array of floats
-        if (len(splitedArray) < 5 ):
+        if (len(splitedArray) < 6 ):
             raise Exception("no data on the line!")
         else:
             pass
