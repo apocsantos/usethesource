@@ -83,6 +83,7 @@ def makeFig(): #Create a function that makes the desired plot
 while True: # While loop that loops forever
     while (arduinoData.inWaiting()==0): #Wait here until there is data. otherwise fault would accur
         pass #do nothing
+    #try ... except implemented for when data on the line is not correct!
     try:
         arduinoString = arduinoData.readline()  #read the line of text from the serial port
         #case you found the variable name strange, read my favore pice of C code at: https://dl.dropboxusercontent.com/u/21721067/forkabout.c
