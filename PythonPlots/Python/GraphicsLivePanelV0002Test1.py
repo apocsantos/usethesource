@@ -79,15 +79,23 @@ def makeFig(): #Create a function that makes the desired plot
     plt.ylabel('Luminosidade (lux)')                        #Set ylabels
     plt.plot(lum, 'ro-', label='Luminosidade')              #plot the temperature
     plt.legend(loc='upper left')                            #plot the legend
-    
 #mainProgram
 while True: # While loop that loops forever
     while (arduinoData.inWaiting()==0): #Wait here until there is data. otherwise fault would accur
         pass #do nothing
-    arduinoString = arduinoData.readline()  #read the line of text from the serial port
-    #case you found the variable name strange, read my favore pice of C code at: https://dl.dropboxusercontent.com/u/21721067/forkabout.c
-    #the fricking indian magic happens here
-    splitedArray = [float(s) for s in arduinoString.split(',')] #splits the string into an array of floats
+    #try ... except implemented for when data on the line is not correct!
+    try:
+        arduinoString = arduinoData.readline()  #read the line of text from the serial port
+        #case you found the variable name strange, read my favore pice of C code at: https://dl.dropboxusercontent.com/u/21721067/forkabout.c
+        #the fricking indian magic happens here
+        splitedArray = [float(s) for s in arduinoString.split(',')] #splits the string into an array of floats
+        if (len(splitedArray) < 6 ):
+            raise Exception("no data on the line!")
+        else:
+            pass
+    except:
+        time.sleep(1)
+        pass
     #assign each array value to the correspondent variable, I dont *f like in-line opreations cause they tend to make messy code
     temp = splitedArray[0]     #assign each array value to the correspondent variable
     hum1 = splitedArray[1]     #I dont *f like in-line opreations cause they tend to make messy code
