@@ -2,6 +2,25 @@
 #include <SparkFunTSL2561.h>
 #include <Wire.h>
 
+/*
+ * ligações: DHT11:
+ * Data pin ao DHTPIN correspondente
+ * VCC -> 3b3
+ * GND -> GND
+ * ------------------------------------
+ * Pin Analogico do sensor -> Pin analogico do arduino a ser utilizado
+ * VCC -> 3v3
+ * GND -> GND
+ * 
+ * ----------------------------------------------------
+ * Sensor de Luminosidade TSL2561
+ * 3v3 -> 3v3
+ * GND -> GND
+ * SCL - A5
+ * SDA -> A4
+ * 
+*/
+
 #define DHTPIN1 2     // define o pino de dados do sensor, neste caso 2
 #define DHTPIN2 7     // define o pino de dados do sensor, neste caso 7
 #define DHTTYPE DHT11   // DHT 11 (basta uma constante para dois sensores)
